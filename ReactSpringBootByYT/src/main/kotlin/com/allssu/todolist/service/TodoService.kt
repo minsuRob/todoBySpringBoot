@@ -14,7 +14,7 @@ class TodoService (
     fun insertTodo(todoName: String): Todo = todoRepository.save(Todo(todoName = todoName))
 
     fun updateTodo(todoId: Long): Todo {
-        val todo = todoRepository.findByIdOrNull(todoId) ?: throw java.lang.Exception()
+        val todo = todoRepository.findByIdOrNull(todoId) ?: throw java.lang.Exception() // Elvis Operation
         todo.completed = !todo.completed
         return todoRepository.save(todo)
     }
