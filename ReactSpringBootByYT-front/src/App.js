@@ -52,6 +52,7 @@ function App() {
 
     insertTodo();
     console.log("add a todolist")
+    // update todo refactor 작업을 해당 함수에서도 가능함
   }
 
     
@@ -63,7 +64,15 @@ function App() {
       })
       .then((response) => {
         console.log(response.data)
-        getTodos();
+        // getTodos();
+        // reduce resource by front 
+
+        setTodos(
+          todos.map((todo) => 
+            todo.id === id ? {...todo, completed: !todo.completed} : todo
+          )
+          // Need to check a spread function
+        )
       })
       .catch((error)=> {
         console.error(error);
