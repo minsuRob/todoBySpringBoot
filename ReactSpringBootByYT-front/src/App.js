@@ -68,8 +68,16 @@ function App() {
         // reduce resource by front 
 
         setTodos(
-          todos.map((todo) => 
-            todo.id === id ? {...todo, completed: !todo.completed} : todo
+          todos.map((todo) => {
+            let a;
+            if(todo.id === id) {
+              //console.log(...todo);
+              a = {...todo, completed: !todo.completed}
+            } else {
+              a = todo;
+            }
+            return a;
+          }
           )
           // Need to check a spread function
         )
