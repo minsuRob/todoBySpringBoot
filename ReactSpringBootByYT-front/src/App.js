@@ -9,6 +9,7 @@ function App() {
   const baseUrl = "http://localhost:8081"
 
   const [input, setInput] = useState("");
+  const [todos, setTodos] = useState([]);
 
   useEffect(() => {
     getTodos();
@@ -18,8 +19,7 @@ function App() {
     await axios
     .get(baseUrl + "/todo")
     .then((response)=> {
-        console.log(response)
-        console.log(response.data)
+        setTodos(response.data);
     })
     .catch((error) =>{
       console.error(error);
@@ -64,6 +64,20 @@ function App() {
         </label>
         <input type="submit" value="Create"/>
       </form>
+
+      {
+        todos
+        ? todos.map((todo) => {
+          return (
+            <div className="todo" key={todo.id}>
+                <label onClick={null}>
+                  <h3>{todo.todoName}</h3>
+                </label>
+            </div>
+          )
+        })
+        : null
+      }
     </div>
   );
 }
