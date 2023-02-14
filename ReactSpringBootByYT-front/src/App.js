@@ -82,6 +82,27 @@ function App() {
     updateTodo();
     console.log("add a todolist")
   }
+
+  function deleteTodo(id) {
+    const deleteTodo = async () => {
+      await axios.delete(baseUrl + "/todo/" + id, {
+        todoName: input
+      })
+      .then((response) => {
+        console.log(response.data)
+        // getTodos();
+        // reduce resource by front 
+
+        setTodos(
+          todos.filter((todo) => todo.id != id)
+        )
+      })
+      .catch((error)=> {
+        console.error(error);
+      })
+    }
+    deleteTodo();
+  }
   
   return (
     <div className="App">
@@ -99,10 +120,13 @@ function App() {
         ? todos.map((todo) => {
           return (
             <div className="todo" key={todo.id}>
-                <label className = {todo.completed ? "completed" : null}
-                onClick={()=> updateTodo(todo.id)}>
-                  <h3>{todo.todoName}</h3>
-                </label>
+                <h3>
+                  <label className = {todo.completed ? "completed" : null}
+                    onClick={()=> updateTodo(todo.id)}>
+                    {todo.todoName}
+                  </label>
+                  <label onClick={() => deleteTodo(todo.id)}>&nbsp;&nbsp;❌</label>
+                </h3>
             </div>
           )
         })
