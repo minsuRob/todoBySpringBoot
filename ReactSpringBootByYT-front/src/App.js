@@ -53,6 +53,26 @@ function App() {
     insertTodo();
     console.log("add a todolist")
   }
+
+    
+  function updateTodo(id) {
+
+    const updateTodo = async () => {
+      await axios.put(baseUrl + "/todo/" + id, {
+        todoName: input
+      })
+      .then((response) => {
+        console.log(response.data)
+        getTodos();
+      })
+      .catch((error)=> {
+        console.error(error);
+      })
+    }
+
+    updateTodo();
+    console.log("add a todolist")
+  }
   
   return (
     <div className="App">
@@ -70,7 +90,8 @@ function App() {
         ? todos.map((todo) => {
           return (
             <div className="todo" key={todo.id}>
-                <label onClick={null}>
+                <label className = {todo.completed ? "completed" : null}
+                onClick={()=> updateTodo(todo.id)}>
                   <h3>{todo.todoName}</h3>
                 </label>
             </div>
