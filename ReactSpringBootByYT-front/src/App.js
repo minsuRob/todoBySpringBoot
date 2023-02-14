@@ -95,7 +95,7 @@ function App() {
 
         setTodos(
           todos.filter((todo) => todo.id != id)
-        )
+        ) // filter check
       })
       .catch((error)=> {
         console.error(error);
