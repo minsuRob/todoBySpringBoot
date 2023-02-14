@@ -31,13 +31,33 @@ function App() {
   function changeText(e) {
     e.preventDefault();
     setInput(e.target.value);
-    
+  }
+  
+  function insertTodo(e) {
+    e.preventDefault();
+
+    const insertTodo = async () => {
+      await axios.post(baseUrl + "/todo", {
+        todoName: input
+      })
+      .then((response) => {
+        console.log(response.data)
+        setInput("");
+        getTodos();
+      })
+      .catch((error)=> {
+        console.error(error);
+      })
+    }
+
+    insertTodo();
+    console.log("add a todolist")
   }
   
   return (
     <div className="App">
       <h1>Todo List</h1>
-      <form>
+      <form onSubmit={insertTodo}>
         <label>
           Todo &nbsp;
           <input type="text" required={true} value={input} onChange={changeText}/>
